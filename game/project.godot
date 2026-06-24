@@ -23,6 +23,7 @@ config/icon="res://icon.svg"
 
 Events="*res://scripts/infra/events.gd"
 GameRunner="*res://scripts/controller/game_runner.gd"
+MonsterController="*uid://db5d6nq0ajioe"
 
 [debug]
 
