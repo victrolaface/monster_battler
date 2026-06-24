@@ -19,15 +19,20 @@ func setup_model():
 	
 	Events.on_new_game_state_created.emit(game_state)
 	
+	game_state.player = Trainer.new()
+	game_state.opponent = Trainer.new()
+	
 	var species_salamander = preload("res://content/species/salamander.tres")
 	var species_turtle = preload("res://content/species/turtle.tres")
 	
 	var monster1 = MonsterController.create_monster(species_salamander)
 	var monster2 = MonsterController.create_monster(species_turtle, "Reginald")
 	
+	game_state.player.monsters.append(monster1)
 	game_state.player_monster = monster1
 	Events.on_monster_added_to_battle.emit(monster1, true)
 	
+	game_state.opponent.monsters.append(monster2)
 	game_state.opponent_monster = monster2
 	Events.on_monster_added_to_battle.emit(monster2, false)
 	
