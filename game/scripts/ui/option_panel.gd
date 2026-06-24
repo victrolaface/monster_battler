@@ -12,7 +12,7 @@ func populate(labels: Array[StringEnabled]):
 
 	for i in range(0, labels.size()):
 		# Create each button...
-		var index = i
+		var _index = i
 		var option = labels[i].string
 		var button = Button.new()
 		options_parent.add_child(button)
