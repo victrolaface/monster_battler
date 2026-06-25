@@ -56,14 +56,11 @@ func handle_request_menu_monsters():
 	Events.on_menu_select_monster.emit(labels)
 
 func handle_request_menu_option_by_index(mode: INTERACTION_MODE, index: int):
-	# handle player case
+	# handsle player case
 	match(mode):
 		INTERACTION_MODE.MON:
-			var monster = game_state.player.monsters[index]
-			game_state.player.current_monster = monster
-			Events.on_monster_added_to_battle.emit(monster, true)
-	return
+			TrainerController.add_trainer_monster_to_battle(game_state.player, index)
+	Events.on_menu_option_selected.emit()
 		
-	
 func handle_run():
 	get_tree().quit()

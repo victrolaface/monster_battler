@@ -12,3 +12,4 @@ func create_monster(species: SpeciesResource, nickname: String = "") -> Monster:
 	monster.nickname = nickname
 	
 	return monster
+	
