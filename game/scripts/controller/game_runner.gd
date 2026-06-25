@@ -29,11 +29,13 @@ func setup_model():
 	var monster2 = MonsterController.create_monster(species_turtle, "Reginald")
 	
 	game_state.player.monsters.append(monster1)
-	game_state.player_monster = monster1
+	game_state.player.current_monster = monster1
+	
 	Events.on_monster_added_to_battle.emit(monster1, true)
 	
 	game_state.opponent.monsters.append(monster2)
-	game_state.opponent_monster = monster2
+	game_state.opponent.current_monster = monster2
+	
 	Events.on_monster_added_to_battle.emit(monster2, false)
 	
 	return
