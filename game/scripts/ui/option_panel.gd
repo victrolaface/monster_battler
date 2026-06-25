@@ -12,13 +12,15 @@ func populate(labels: Array[StringEnabled]):
 
 	for i in range(0, labels.size()):
 		# Create each button...
-		var _index = i
+		var index = i
 		var option = labels[i].string
 		var button = Button.new()
 		options_parent.add_child(button)
 		button.text = option
 		button.disabled = !labels[i].enabled
 		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		button.pressed.connect(func(): Events.request_menu_option_by_index.emit(mode, index))
+		
 		# TODO: Connect the button pressed signal to something
 
 func clear():

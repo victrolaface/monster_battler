@@ -6,6 +6,6 @@
 [resource]
 script = ExtResource("1_onk3r")
 image = ExtResource("1_6ogee")
-name = "salamander"
+name = "Salamander"
 max_hp = 25
 metadata/_custom_type_script = "uid://djamiiplbweq2"
