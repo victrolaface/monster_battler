@@ -24,11 +24,14 @@ func setup_model():
 	
 	var species_salamander = preload("res://content/species/salamander.tres")
 	var species_turtle = preload("res://content/species/turtle.tres")
+	var species_dino = preload("res://content/species/dino.tres")
 	
 	var monster1 = MonsterController.create_monster(species_salamander)
 	var monster2 = MonsterController.create_monster(species_turtle, "Reginald")
+	var monster3 = MonsterController.create_monster(species_dino, "Steven")
 	
 	game_state.player.monsters.append(monster1)
+	game_state.player.monsters.append(monster3)
 	game_state.player.current_monster = monster1
 	
 	Events.on_monster_added_to_battle.emit(monster1, true)
