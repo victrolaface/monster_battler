@@ -3,5 +3,6 @@ class_name DoDamage extends TargetedEffect
 @export var base_damage: int
 
 func do(doer: Monster, source: Move, game_state: GameState):
-	var target = null # todo find the target
-	print("Doing the effect! %d"%[base_damage])
+	var target = MonsterController.get_monster_opponent(doer)
+	MonsterController.adjust_monster_hitpoints(target, base_damage)
+	
