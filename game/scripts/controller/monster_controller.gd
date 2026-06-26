@@ -15,7 +15,7 @@ func get_monster_opponent(monster: Monster) -> Monster:
 	return null
 	
 func adjust_monster_hitpoints(monster: Monster, amount: int):
-	monster.hp -= amount
+	monster.hp += amount
 	
 	# TODO: add check for fainting
 	Events.on_monster_updated.emit(monster)
