@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cih0q3a2gd620" path="res://scripts/content/targeted_effects/targeted_effect.gd" id="2_h48l8"]
 [ext_resource type="Script" uid="uid://bkdjxoradugbj" path="res://scripts/content/targeted_effects/do_damage.gd" id="3_yx2ie"]
 
-[sub_resource type="Resource" id="Resource_4w4es"]
+[sub_resource type="Resource" id="Resource_3kg54"]
 script = ExtResource("3_yx2ie")
 base_damage = 30
 metadata/_custom_type_script = "uid://bkdjxoradugbj"
@@ -13,5 +13,6 @@ metadata/_custom_type_script = "uid://bkdjxoradugbj"
 script = ExtResource("1_dwguc")
 name = "Torch"
 max_usages = 20
-use_effects = Array[ExtResource("2_h48l8")]([SubResource("Resource_4w4es")])
+use_effects = Array[ExtResource("2_h48l8")]([SubResource("Resource_3kg54")])
+type = 3
 metadata/_custom_type_script = "uid://b8pt4buw614s3"

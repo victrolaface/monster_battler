@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cih0q3a2gd620" path="res://scripts/content/targeted_effects/targeted_effect.gd" id="2_rvtjr"]
 [ext_resource type="Script" uid="uid://bkdjxoradugbj" path="res://scripts/content/targeted_effects/do_damage.gd" id="3_apfif"]
 
-[sub_resource type="Resource" id="Resource_3kg54"]
+[sub_resource type="Resource" id="Resource_rvtjr"]
 script = ExtResource("3_apfif")
 base_damage = 20
 metadata/_custom_type_script = "uid://bkdjxoradugbj"
@@ -13,5 +13,5 @@ metadata/_custom_type_script = "uid://bkdjxoradugbj"
 script = ExtResource("1_cfgox")
 name = "Smack"
 max_usages = 25
-use_effects = Array[ExtResource("2_rvtjr")]([SubResource("Resource_3kg54")])
+use_effects = Array[ExtResource("2_rvtjr")]([SubResource("Resource_rvtjr")])
 metadata/_custom_type_script = "uid://b8pt4buw614s3"

@@ -4,7 +4,7 @@ extends Node
 
 # INTERACTION_MODE encodes the menu states the main battle menu can be in.
 # Since RUN isn't a special menu, it does not get an entry here
-enum INTERACTION_MODE {NONE, FIGHT, ITEM, MON}
+enum INTERACTION_MODE { NONE, FIGHT, ITEM, MON }
 
 var game_state: GameState
 
@@ -34,19 +34,17 @@ func setup_model():
 	
 	game_state.player.monsters.append(monster1)
 	game_state.player.monsters.append(monster3)
-	game_state.player.current_monster = monster1
-	
-	Events.on_monster_added_to_battle.emit(monster1, true)
+	TrainerController.add_trainer_monster_to_battle(game_state.player, 0)
 	
 	game_state.opponent.monsters.append(monster2)
-	game_state.opponent.current_monster = monster2
+	TrainerController.add_trainer_monster_to_battle(game_state.opponent, 0)
 	
-	Events.on_monster_added_to_battle.emit(monster2, false)
+	# game_state.opponent.current_monster = monster2
+	# Events.on_monster_added_to_battle.emit(monster2, false)
 	
 	return
 	
 func handle_request_menu_fight():
-	# var labels: Array[StringEnabled] = [StringEnabled.new("A", true), StringEnabled.new("B", false)]
 	var labels: Array[StringEnabled] = []
 	
 	for move in game_state.player.current_monster.moves:
@@ -62,7 +60,7 @@ func handle_request_menu_monsters():
 	Events.on_menu_select_monster.emit(labels)
 
 func handle_request_menu_option_by_index(mode: INTERACTION_MODE, index: int):
-	# handsle player case
+	# handle player case
 	match(mode):
 		INTERACTION_MODE.MON:
 			TrainerController.add_trainer_monster_to_battle(game_state.player, index)
