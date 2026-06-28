@@ -13,6 +13,7 @@ signal on_menu_fight
 signal on_menu_select_monster
 signal on_menu_items
 signal on_monster_added_to_battle
+signal on_new_game_state_created
 
 # Events sent internally
 signal request_log

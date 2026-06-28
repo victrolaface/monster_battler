@@ -17,16 +17,13 @@ func _ready():
 func setup_model():
 	game_state = GameState.new()
 	
+	Events.on_new_game_state_created.emit(game_state)
+	
 	var species_salamander = preload("res://content/species/salamander.tres")
 	var species_turtle = preload("res://content/species/turtle.tres")
 	
-	var monster1 = Monster.new()
-	monster1.species = species_salamander
-	monster1.hp = species_salamander.max_hp
-	
-	var monster2 = Monster.new()
-	monster2.species = species_turtle
-	monster2.hp = species_turtle.max_hp
+	var monster1 = MonsterController.create_monster(species_salamander)
+	var monster2 = MonsterController.create_monster(species_turtle, "Reggie")
 	
 	game_state.player_monster = monster1
 	Events.on_monster_added_to_battle.emit(monster1, true)
