@@ -22,7 +22,7 @@ func _ready():
 	Events.on_menu_fight.connect(handle_select_fight)
 	Events.on_menu_select_monster.connect(handle_select_monsters)
 	Events.on_menu_items.connect(handle_select_items)
-	Events.on_menu_option_selected.connect(handle_select_main)
+
 	# Activate the main menu 
 	handle_select_main()
 
@@ -76,12 +76,3 @@ func handle_select_run():
 	# Since we only have battles and no overworld in this prototype, running means quitting.
 	if is_interaction_blocked():
 		return
-	Events.request_log.emit("You run away. Your cowardice will not be forgotten.")
-	
-	var timer = Timer.new()
-	add_child(timer)
-	timer.wait_time = 2.0
-	timer.timeout.connect(func(): Events.request_menu_run.emit())
-	timer.start()
-	
-	

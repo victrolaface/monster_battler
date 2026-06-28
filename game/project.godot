@@ -8,23 +8,17 @@
 
 config_version=5
 
-[animation]
-
-compatibility/default_parent_skeleton_in_mesh_instance_3d=true
-
 [application]
 
 config/name="Let's Build a Monster Battler"
 run/main_scene="uid://dsstlaea5k8aw"
-config/features=PackedStringArray("4.7", "Forward Plus")
+config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Events="*res://scripts/infra/events.gd"
 GameRunner="*res://scripts/controller/game_runner.gd"
-MonsterController="*uid://db5d6nq0ajioe"
-TrainerController="*uid://bilxrlxdiqije"
 
 [debug]
 
