@@ -21,6 +21,9 @@ func adjust_monster_hitpoints(monster: Monster, amount: int):
 func use_monster_move_at_index(monster: Monster, index: int):
 	var move = monster.moves[index]
 	
+	var use_string = move.use_message.format({"user_name": monster.name, "move_name": move.name})
+	Events.request_log.emit(use_string)
+	
 	for effect in move.resource.use_effects:
 		effect._do(monster, move, game_state)
 	# TODO: connect effects to move

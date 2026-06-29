@@ -38,10 +38,6 @@ func setup_model():
 	
 	game_state.opponent.monsters.append(monster2)
 	TrainerController.add_trainer_monster_to_battle(game_state.opponent, 0)
-	# game_state.player.current_monster = monster1
-	# Events.on_monster_added_to_battle.emit(monster1, true)
-	# game_state.opponent.current_monster = monster2
-	# Events.on_monster_added_to_battle.emit(monster2, false)	
 	
 	return
 	

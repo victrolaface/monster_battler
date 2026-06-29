@@ -5,3 +5,9 @@ class_name Move
 
 var type: MonsterType.Type:
 	get: return resource.type
+
+var name: String:
+	get: return resource.name
+
+var use_message: String:
+	get: return resource.use_message
