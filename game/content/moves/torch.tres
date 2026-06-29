@@ -14,4 +14,5 @@ script = ExtResource("1_dwguc")
 name = "Torch"
 usage_max = 20
 use_effects = Array[ExtResource("2_h48l8")]([SubResource("Resource_y10id")])
+type = 3
 metadata/_custom_type_script = "uid://b8pt4buw614s3"

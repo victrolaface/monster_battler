@@ -9,9 +9,14 @@ script = ExtResource("3_apfif")
 base_damage = 20
 metadata/_custom_type_script = "uid://bkdjxoradugbj"
 
+[sub_resource type="Resource" id="Resource_rvtjr"]
+script = ExtResource("3_apfif")
+base_damage = 5
+metadata/_custom_type_script = "uid://bkdjxoradugbj"
+
 [resource]
 script = ExtResource("1_cfgox")
 name = "Smack"
 usage_max = 25
-use_effects = Array[ExtResource("2_rvtjr")]([SubResource("Resource_5qlyv")])
+use_effects = Array[ExtResource("2_rvtjr")]([SubResource("Resource_5qlyv"), SubResource("Resource_rvtjr")])
 metadata/_custom_type_script = "uid://b8pt4buw614s3"
