@@ -1,12 +1,13 @@
 class_name TargetedEffect extends Resource
 
+@export var outcome_filter: OutcomeFilter
+@export var target_self: bool
+
 enum OutcomeFilter {
 	HIT,
 	MISS,
 	BOTH
 }
-
-@export var outcome_filter: OutcomeFilter
 
 func _do(doer: Monster, source: Move, game_state: GameState):
 	return

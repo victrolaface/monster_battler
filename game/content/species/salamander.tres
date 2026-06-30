@@ -5,12 +5,13 @@
 [ext_resource type="Script" uid="uid://b8pt4buw614s3" path="res://scripts/content/move_resource.gd" id="3_tlkrm"]
 [ext_resource type="Resource" uid="uid://xdeavx7x3eb2" path="res://content/moves/smack.tres" id="4_tjeay"]
 [ext_resource type="Resource" uid="uid://ca4tmlywk0wb2" path="res://content/moves/torch.tres" id="5_gu56f"]
+[ext_resource type="Resource" uid="uid://cctmlgij4rqdn" path="res://content/moves/regenerate.tres" id="6_tjeay"]
 
 [resource]
 script = ExtResource("1_onk3r")
 image = ExtResource("1_6ogee")
 name = "Salamander"
 max_hp = 25
-starter_moves = Array[ExtResource("3_tlkrm")]([ExtResource("4_tjeay"), ExtResource("5_gu56f")])
+starter_moves = Array[ExtResource("3_tlkrm")]([ExtResource("4_tjeay"), ExtResource("5_gu56f"), ExtResource("6_tjeay")])
 type = 3
 metadata/_custom_type_script = "uid://djamiiplbweq2"

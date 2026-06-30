@@ -3,7 +3,7 @@ class_name DoDamage extends TargetedEffect
 @export var base_damage: int
 
 func _do(doer: Monster, source: Move, game_state: GameState):
-	var target = MonsterController.get_monster_opponent(doer)
+	var target = doer if target_self else MonsterController.get_monster_opponent(doer)
 	
 	var type_advantage_coefficient = MonsterType.get_type_advantage_coefficient(source.type, target.type)
 	
