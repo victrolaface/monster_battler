@@ -7,6 +7,7 @@ extends Node
 enum INTERACTION_MODE {NONE, FIGHT, ITEM, MON}
 
 var game_state: GameState
+var rng: RandomNumberGenerator
 
 func _ready():
 	# Connect signal listeners
@@ -18,8 +19,9 @@ func _ready():
 	
 func setup_model():
 	game_state = GameState.new()
+	rng = RandomNumberGenerator.new()
 	
-	Events.on_new_game_state_created.emit(game_state)
+	Events.on_new_game_state_created.emit()
 	
 	game_state.player = Trainer.new()
 	game_state.opponent = Trainer.new()

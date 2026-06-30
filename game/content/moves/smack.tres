@@ -6,12 +6,25 @@
 
 [sub_resource type="Resource" id="Resource_5qlyv"]
 script = ExtResource("3_apfif")
-base_damage = 20
+base_damage = 3
+metadata/_custom_type_script = "uid://bkdjxoradugbj"
+
+[sub_resource type="Resource" id="Resource_rvtjr"]
+script = ExtResource("3_apfif")
+base_damage = 4
+outcome_filter = 1
+metadata/_custom_type_script = "uid://bkdjxoradugbj"
+
+[sub_resource type="Resource" id="Resource_d0u3u"]
+script = ExtResource("3_apfif")
+base_damage = 5
+outcome_filter = 2
 metadata/_custom_type_script = "uid://bkdjxoradugbj"
 
 [resource]
 script = ExtResource("1_cfgox")
 name = "Smack"
 usage_max = 25
-use_effects = Array[ExtResource("2_rvtjr")]([SubResource("Resource_5qlyv")])
+use_effects = Array[ExtResource("2_rvtjr")]([SubResource("Resource_5qlyv"), SubResource("Resource_rvtjr"), SubResource("Resource_d0u3u")])
+base_accuracy = 0.5
 metadata/_custom_type_script = "uid://b8pt4buw614s3"

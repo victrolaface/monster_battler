@@ -11,3 +11,6 @@ var name: String:
 
 var use_message: String:
 	get: return resource.use_message
+	
+var base_accuracy: float:
+	get: return resource.base_accuracy
