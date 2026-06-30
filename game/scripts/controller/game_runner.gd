@@ -23,8 +23,8 @@ func setup_model():
 	
 	Events.on_new_game_state_created.emit()
 	
-	game_state.player = Trainer.new()
-	game_state.opponent = Trainer.new()
+	#game_state.player = Trainer.new()
+	#game_state.opponent = Trainer.new()
 	
 	var species_salamander = preload("res://content/species/salamander.tres")
 	var species_turtle = preload("res://content/species/turtle.tres")
@@ -34,12 +34,15 @@ func setup_model():
 	var monster2 = MonsterController.create_monster(species_turtle, "Reggie")
 	var monster3 = MonsterController.create_monster(species_dino, "Steven")
 	
-	game_state.player.monsters.append(monster1)
-	game_state.player.monsters.append(monster3)
-	TrainerController.add_trainer_monster_to_battle(game_state.player, 0)
+	game_state.player = TrainerController.create_trainer([monster1, monster2], true)
+	game_state.opponent = TrainerController.create_trainer([monster3], false)
 	
-	game_state.opponent.monsters.append(monster2)
-	TrainerController.add_trainer_monster_to_battle(game_state.opponent, 0)
+	#game_state.player.monsters.append(monster1)
+	#game_state.player.monsters.append(monster3)
+	#TrainerController.add_trainer_monster_to_battle(game_state.player, 0)
+	#
+	#game_state.opponent.monsters.append(monster2)
+	#TrainerController.add_trainer_monster_to_battle(game_state.opponent, 0)
 	
 	return
 	
@@ -68,5 +71,13 @@ func handle_request_menu_option_by_index(mode: INTERACTION_MODE, index: int):
 	Events.on_menu_option_selected.emit()
 
 func handle_run():
-	get_tree().quit()
+	Events.request_log.emit("You run away. Your cowardice will not be forgotten.")
+	
+	var timer = Timer.new()
+	add_child(timer)
+	timer.wait_time = 2.0
+	timer.timeout.connect(func(): get_tree().quit())
+	timer.start()
+	
+	#get_tree().quit()
 	return

@@ -18,13 +18,16 @@ func get_monster_opponent(monster: Monster) -> Monster:
 	return null
 	
 func adjust_monster_hitpoints(monster: Monster, amount: int):
-	monster.hp += amount
+	monster.hp = clamp(monster.hp + amount, 0, monster.max_hp)
 	
-	Events.on_monster_updated.emit(monster)
 	# TODO: add check for fainting
-
+	Events.on_monster_updated.emit(monster)
+	
 func use_monster_move_at_index(monster: Monster, index: int):
 	var move = monster.moves[index]
+	if move.usages <= 0:
+		return
+	move.usages -= 1
 	
 	var use_string = move.use_message.format({"user_name": monster.name, "move_name": move.name})
 	Events.request_log.emit(use_string)
