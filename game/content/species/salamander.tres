@@ -11,7 +11,10 @@
 script = ExtResource("1_onk3r")
 image = ExtResource("1_6ogee")
 name = "Salamander"
-max_hp = 25
 starter_moves = Array[ExtResource("3_tlkrm")]([ExtResource("4_tjeay"), ExtResource("5_gu56f"), ExtResource("6_tjeay")])
 type = 3
+base_max_hp = 20
+base_attack = 7
+base_defense = 3
+base_speed = 5
 metadata/_custom_type_script = "uid://djamiiplbweq2"

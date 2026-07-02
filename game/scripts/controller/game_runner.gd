@@ -17,14 +17,15 @@ func _ready():
 	Events.request_menu_option_by_index.connect(handle_request_menu_option_by_index)
 	Events.on_ui_ready.connect(setup_model)
 	
+func _process(_delta: float):
+	if !game_state.is_player_turn:
+		run_ai_turn()
+	
 func setup_model():
 	game_state = GameState.new()
 	rng = RandomNumberGenerator.new()
 	
 	Events.on_new_game_state_created.emit()
-	
-	#game_state.player = Trainer.new()
-	#game_state.opponent = Trainer.new()
 	
 	var species_salamander = preload("res://content/species/salamander.tres")
 	var species_turtle = preload("res://content/species/turtle.tres")
@@ -37,12 +38,7 @@ func setup_model():
 	game_state.player = TrainerController.create_trainer([monster1, monster2], true)
 	game_state.opponent = TrainerController.create_trainer([monster3], false)
 	
-	#game_state.player.monsters.append(monster1)
-	#game_state.player.monsters.append(monster3)
-	#TrainerController.add_trainer_monster_to_battle(game_state.player, 0)
-	#
-	#game_state.opponent.monsters.append(monster2)
-	#TrainerController.add_trainer_monster_to_battle(game_state.opponent, 0)
+	game_state.is_player_turn = game_state.player_monster.speed >= game_state.opponent_monster.speed
 	
 	return
 	
@@ -78,6 +74,21 @@ func handle_run():
 	timer.wait_time = 2.0
 	timer.timeout.connect(func(): get_tree().quit())
 	timer.start()
-	
-	#get_tree().quit()
 	return
+
+func on_turn_ended():
+	game_state.is_player_turn = !game_state.is_player_turn
+
+func run_ai_turn():	
+	var legal_move_indices = game_state.opponent_monster.legal_move_indices()
+	if legal_move_indices.size() <= 0:
+		# struggle move
+		Events.request_log.emit("cant act")
+		on_turn_ended()
+	else:
+		var move_index = legal_move_indices.pick_random()
+		MonsterController.use_monster_move_at_index(game_state.opponent_monster, move_index)
+	
+	# get_legal_move_indices(game_state.opponent_monster.get_legal
+	# var move_index = rng.randi_range(0, game_state.opponent_monster.moves.size() - 1)
+	

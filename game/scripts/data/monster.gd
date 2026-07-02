@@ -5,9 +5,6 @@ var hp: int
 var nickname: String
 var moves: Array[Move]
 
-var max_hp: int:
-	get: return species.max_hp
-	
 var image: Texture2D:
 	get: return species.image
 	
@@ -16,3 +13,37 @@ var name: String:
 
 var type: MonsterType.Type:
 	get: return species.type
+
+var max_hp: int:
+	get: return species.base_max_hp
+
+var attack: int:
+	get: return species.base_attack
+
+var defense: int:
+	get: return species.base_defense
+
+var speed: int:
+	get: return species.base_speed
+	
+func legal_move_indices() -> Array[int]:
+	var legal_indices: Array[int] = []
+	
+	for i in range(0, moves.size()):
+		if moves[i] and moves[i].usages > 0:
+			legal_indices.append(i)
+	
+	return legal_indices
+		
+	
+func dump_state():
+	return "Name: {name}\n Hp: ({hp}/{max_hp})\n ATK: {attack}\n DEF: {defense}\n SPD: {speed}"\
+		.format({
+			"name": name,
+			"attack": attack,
+			"defense": defense,
+			"speed": speed,
+			"hp": hp,
+			"max_hp": max_hp
+	})
+		

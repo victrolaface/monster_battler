@@ -37,18 +37,24 @@ func use_monster_move_at_index(monster: Monster, index: int):
 	if !hit:
 		Events.request_log.emit("But it misses")
 	
+	
+	
 	for effect in move.resource.use_effects:
 		if effect._should_do(hit):
 			effect._do(monster, move, game_state)
-	
+			
+	GameRunner.on_turn_ended()
+
 func create_monster(species: SpeciesResource, nickname: String = "") -> Monster:
 	var monster = Monster.new()
 	monster.species = species
-	monster.hp = species.max_hp
+	monster.hp = monster.max_hp
 	monster.nickname = nickname
 	var moves: Array[Move] = []
 	
 	for move_resource in species.starter_moves:
+		if move_resource == null:
+			continue
 		var move = Move.new()
 		move.resource = move_resource
 		move.usages = move_resource.usage_max

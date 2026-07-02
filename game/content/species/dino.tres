@@ -8,6 +8,9 @@
 script = ExtResource("1_pqx4l")
 image = ExtResource("1_htcjd")
 name = "Dino"
-max_hp = 22
 type = 4
+base_max_hp = 23
+base_attack = 5
+base_defense = 5
+base_speed = 5
 metadata/_custom_type_script = "uid://djamiiplbweq2"
