@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ConditionResource" format=3 uid="uid://bgwu6eca50s0x"]
+
+[ext_resource type="Script" uid="uid://bw5ule2ss55e4" path="res://scripts/content/condition_resource.gd" id="1_syolk"]
+[ext_resource type="Script" uid="uid://dbkffsr6xek2v" path="res://scripts/content/stat_modifier.gd" id="2_5myhd"]
+
+[resource]
+script = ExtResource("1_syolk")
+name = "Poison"
+metadata/_custom_type_script = "uid://bw5ule2ss55e4"

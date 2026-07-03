@@ -29,15 +29,13 @@ func use_monster_move_at_index(monster: Monster, index: int):
 		return
 	move.usages -= 1
 	
-	var use_string = move.use_message.format({"user_name": monster.name, "move_name": move.name})
-	Events.request_log.emit(use_string)
+	var use_message = move.use_message.format({"user_name": monster.name, "move_name": move.name})
+	Events.request_log.emit(use_message)
 	
 	var hit = rng.randf() < move.base_accuracy
 	
 	if !hit:
 		Events.request_log.emit("But it misses")
-	
-	
 	
 	for effect in move.resource.use_effects:
 		if effect._should_do(hit):
@@ -63,3 +61,9 @@ func create_monster(species: SpeciesResource, nickname: String = "") -> Monster:
 	monster.moves = moves
 	
 	return monster
+
+func instantiate_condition_on_monster(monster: Monster, condition_resource: ConditionResource):
+	var condition = Condition.new()
+	condition.resource = condition_resource
+	monster.conditions.append(condition)
+	

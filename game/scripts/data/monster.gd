@@ -4,6 +4,7 @@ var species: SpeciesResource
 var hp: int
 var nickname: String
 var moves: Array[Move]
+var conditions: Array[Condition]
 
 var image: Texture2D:
 	get: return species.image
