@@ -80,15 +80,12 @@ func on_turn_ended():
 	game_state.is_player_turn = !game_state.is_player_turn
 
 func run_ai_turn():	
-	var legal_move_indices = game_state.opponent_monster.legal_move_indices()
+	var legal_move_indices = game_state.opponent_monster.get_legal_move_indices()
 	if legal_move_indices.size() <= 0:
-		# struggle move
-		Events.request_log.emit("cant act")
+		# struggle movew
+		Events.request_log.emit("cant act. no moves")
 		on_turn_ended()
 	else:
 		var move_index = legal_move_indices.pick_random()
 		MonsterController.use_monster_move_at_index(game_state.opponent_monster, move_index)
-	
-	# get_legal_move_indices(game_state.opponent_monster.get_legal
-	# var move_index = rng.randi_range(0, game_state.opponent_monster.moves.size() - 1)
-	
+		

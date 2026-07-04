@@ -16,18 +16,18 @@ var type: MonsterType.Type:
 	get: return species.type
 
 var max_hp: int:
-	get: return species.base_max_hp
+	get: return clamp(species.base_max_hp + sum_condition_stats_for_code(Stat.Code.MAX_HP), 1, 999)
 
 var attack: int:
-	get: return species.base_attack
+	get: return clamp(species.base_attack + sum_condition_stats_for_code(Stat.Code.ATK), 1, 999)
 
 var defense: int:
-	get: return species.base_defense
+	get: return clamp(species.base_defense + sum_condition_stats_for_code(Stat.Code.DEF), 1, 999)
 
 var speed: int:
-	get: return species.base_speed
+	get: return clamp(species.base_speed  + sum_condition_stats_for_code(Stat.Code.SPD), 1, 999)
 	
-func legal_move_indices() -> Array[int]:
+func get_legal_move_indices() -> Array[int]:
 	var legal_indices: Array[int] = []
 	
 	for i in range(0, moves.size()):
@@ -35,16 +35,29 @@ func legal_move_indices() -> Array[int]:
 			legal_indices.append(i)
 	
 	return legal_indices
-		
 	
+func sum_condition_stats_for_code(code: Stat.Code):
+	var sum = 0
+	for condition in conditions:
+		for stat_modifier in condition.resource.stat_modifiers:
+			if stat_modifier.stat == code:
+				sum += stat_modifier.modifier
+	return sum
+					
 func dump_state():
-	return "Name: {name}\n Hp: ({hp}/{max_hp})\n ATK: {attack}\n DEF: {defense}\n SPD: {speed}"\
+	var condition_string = ""
+	
+	for condition in conditions:
+		condition_string += condition.name + "\n"
+		
+	return "Name: {name}\n Hp: ({hp}/{max_hp})\n ATK: {attack}\n DEF: {defense}\n SPD: {speed}\n Conditions: {conditions}"\
 		.format({
 			"name": name,
 			"attack": attack,
 			"defense": defense,
 			"speed": speed,
 			"hp": hp,
-			"max_hp": max_hp
+			"max_hp": max_hp,
+			"conditions": condition_string
 	})
 		

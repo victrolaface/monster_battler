@@ -67,3 +67,4 @@ func instantiate_condition_on_monster(monster: Monster, condition_resource: Cond
 	condition.resource = condition_resource
 	monster.conditions.append(condition)
 	
+	Events.on_monster_updated.emit(monster)

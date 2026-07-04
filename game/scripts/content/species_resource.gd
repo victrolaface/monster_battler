@@ -4,7 +4,6 @@ class_name SpeciesResource extends Resource
 @export var name: String
 @export var starter_moves: Array[MoveResource]
 @export var type: MonsterType.Type
-
 @export var base_max_hp: int
 @export var base_attack: int
 @export var base_defense: int
