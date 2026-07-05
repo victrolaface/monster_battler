@@ -16,6 +16,12 @@ func get_monster_opponent(monster: Monster) -> Monster:
 	if monster == game_state.opponent_monster:
 		return game_state.player_monster
 	return null
+
+func get_current_monster() -> Monster:
+	if game_state.is_player_turn:
+		return game_state.player_monster
+	else:
+		return game_state.opponent_monster
 	
 func adjust_monster_hitpoints(monster: Monster, amount: int):
 	monster.hp = clamp(monster.hp + amount, 0, monster.max_hp)

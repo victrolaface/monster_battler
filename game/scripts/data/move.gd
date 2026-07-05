@@ -14,3 +14,6 @@ var use_message: String:
 	
 var base_accuracy: float:
 	get: return resource.base_accuracy
+
+func get_type() -> MonsterType.Type:
+	return type

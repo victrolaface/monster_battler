@@ -1,9 +1,20 @@
 [gd_resource type="Resource" script_class="ConditionResource" format=3 uid="uid://bgwu6eca50s0x"]
 
+[ext_resource type="Script" uid="uid://bmpu62rqyon1e" path="res://scripts/content/targeted_effects/targeted_effect.gd" id="1_ikoyk"]
 [ext_resource type="Script" uid="uid://bw5ule2ss55e4" path="res://scripts/content/condition_resource.gd" id="1_syolk"]
 [ext_resource type="Script" uid="uid://dbkffsr6xek2v" path="res://scripts/content/stat_modifier.gd" id="2_5myhd"]
+[ext_resource type="Script" uid="uid://bkdjxoradugbj" path="res://scripts/content/targeted_effects/do_damage.gd" id="2_xr70u"]
+
+[sub_resource type="Resource" id="Resource_tipki"]
+script = ExtResource("2_xr70u")
+base_damage = 5
+ignore_stats = true
+outcome_filter = 2
+target_self = true
+metadata/_custom_type_script = "uid://bkdjxoradugbj"
 
 [resource]
 script = ExtResource("1_syolk")
 name = "Poison"
+on_begin_turn_effects = Array[ExtResource("1_ikoyk")]([SubResource("Resource_tipki")])
 metadata/_custom_type_script = "uid://bw5ule2ss55e4"
