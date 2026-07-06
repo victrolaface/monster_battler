@@ -7,12 +7,13 @@
 [ext_resource type="Resource" uid="uid://ca4tmlywk0wb2" path="res://content/moves/torch.tres" id="5_gu56f"]
 [ext_resource type="Resource" uid="uid://cctmlgij4rqdn" path="res://content/moves/regenerate.tres" id="6_tjeay"]
 [ext_resource type="Resource" uid="uid://ib5mdptmg8p2" path="res://content/moves/poison_sting.tres" id="7_gu56f"]
+[ext_resource type="Resource" uid="uid://qybsaifjg" path="res://content/moves/paralyzing_sting.tres" id="8_vqvjt"]
 
 [resource]
 script = ExtResource("1_onk3r")
 image = ExtResource("1_6ogee")
 name = "Salamander"
-starter_moves = Array[ExtResource("3_tlkrm")]([ExtResource("4_tjeay"), ExtResource("5_gu56f"), ExtResource("6_tjeay"), ExtResource("7_gu56f")])
+starter_moves = Array[ExtResource("3_tlkrm")]([ExtResource("4_tjeay"), ExtResource("5_gu56f"), ExtResource("6_tjeay"), ExtResource("7_gu56f"), ExtResource("8_vqvjt")])
 type = 3
 base_max_hp = 20
 base_attack = 7

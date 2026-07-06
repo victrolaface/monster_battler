@@ -33,10 +33,17 @@ func use_monster_move_at_index(monster: Monster, index: int):
 	var move = monster.moves[index]
 	if move.usages <= 0:
 		return
-	move.usages -= 1
 	
 	var use_message = move.use_message.format({"user_name": monster.name, "move_name": move.name})
 	Events.request_log.emit(use_message)
+	
+	if monster.move_blocked:
+		Events.request_log.emit("But they can't move!")
+		monster.move_blocked = false
+		GameRunner.on_turn_ended()
+		return
+		
+	move.usages -= 1
 	
 	var hit = rng.randf() < move.base_accuracy
 	
@@ -47,7 +54,7 @@ func use_monster_move_at_index(monster: Monster, index: int):
 		if effect._should_do(hit):
 			effect._do(monster, move, game_state)
 			
-	GameRunner.on_turn_ended()
+	
 
 func create_monster(species: SpeciesResource, nickname: String = "") -> Monster:
 	var monster = Monster.new()
