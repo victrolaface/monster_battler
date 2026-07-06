@@ -15,4 +15,5 @@ name = "Attack Boost"
 stat_modifiers = Array[ExtResource("2_f1l8c")]([SubResource("Resource_tipki")])
 duration = 5
 max_stacks = 3
+short_name = "ATB"
 metadata/_custom_type_script = "uid://bw5ule2ss55e4"

@@ -43,14 +43,20 @@ func sum_condition_stats_for_code(code: Stat.Code):
 			if stat_modifier.stat == code:
 				sum += stat_modifier.modifier
 	return sum
+
+func get_condition_string():
+	if conditions.size() == 0:
+		return "Lv1"
+	else:
+		return conditions[0].resource.short_name
+	
 					
 func dump_state():
 	var condition_string = ""
 	
 	for condition in conditions:
-		condition_string += condition.name + "\n"
-		
-	return "Name: {name}\n Hp: ({hp}/{max_hp})\n ATK: {attack}\n DEF: {defense}\n SPD: {speed}\n Conditions: {conditions}"\
+		condition_string += "{name} - {remaining}\n".format({"name": condition.name, "remaining": condition.duration_remaining})
+	return "Name: {name}\nHP: ({hp}/{max_hp})\nATK: {attack}\nDEF: {defense}\nSPD: {speed}\nConditions:\n{conditions}"\
 		.format({
 			"name": name,
 			"attack": attack,

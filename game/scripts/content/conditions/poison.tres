@@ -23,4 +23,5 @@ name = "Poison"
 stat_modifiers = Array[ExtResource("2_5myhd")]([SubResource("Resource_ikoyk")])
 on_begin_turn_effects = Array[ExtResource("1_ikoyk")]([SubResource("Resource_tipki")])
 duration = 5
+short_name = "PSN"
 metadata/_custom_type_script = "uid://bw5ule2ss55e4"

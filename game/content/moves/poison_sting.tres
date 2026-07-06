@@ -14,6 +14,9 @@ metadata/_custom_type_script = "uid://bkdjxoradugbj"
 [sub_resource type="Resource" id="Resource_85g3d"]
 script = ExtResource("5_61tbo")
 condition_resource = ExtResource("4_p352h")
+chance_to_apply = 0.5
+outcome_filter = null
+target_self = null
 metadata/_custom_type_script = "uid://bnmjm4hngkidv"
 
 [resource]
