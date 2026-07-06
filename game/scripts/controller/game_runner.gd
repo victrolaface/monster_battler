@@ -85,7 +85,10 @@ func on_turn_begun():
 	for condition in monster.conditions:
 		for effect in condition.resource.on_begin_turn_effects:
 			effect._do(monster, condition, game_state)
-	return
+		condition.duration_remaining -= 1
+		if condition.duration_remaining <= 0:
+			MonsterController.end_condition(monster, condition)
+			
 
 func run_ai_turn():	
 	var legal_move_indices = game_state.opponent_monster.get_legal_move_indices()

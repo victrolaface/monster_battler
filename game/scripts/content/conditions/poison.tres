@@ -13,8 +13,14 @@ outcome_filter = 2
 target_self = true
 metadata/_custom_type_script = "uid://bkdjxoradugbj"
 
+[sub_resource type="Resource" id="Resource_ikoyk"]
+script = ExtResource("2_5myhd")
+metadata/_custom_type_script = "uid://dbkffsr6xek2v"
+
 [resource]
 script = ExtResource("1_syolk")
 name = "Poison"
+stat_modifiers = Array[ExtResource("2_5myhd")]([SubResource("Resource_ikoyk")])
 on_begin_turn_effects = Array[ExtResource("1_ikoyk")]([SubResource("Resource_tipki")])
+duration = 5
 metadata/_custom_type_script = "uid://bw5ule2ss55e4"

@@ -69,8 +69,19 @@ func create_monster(species: SpeciesResource, nickname: String = "") -> Monster:
 	return monster
 
 func instantiate_condition_on_monster(monster: Monster, condition_resource: ConditionResource):
+	if monster.conditions\
+		.filter(func (condition): return condition.resource == condition_resource)\
+		.size() >= condition_resource.max_stacks:
+			return
+		
 	var condition = Condition.new()
 	condition.resource = condition_resource
+	condition.duration_remaining = condition.resource.duration
 	monster.conditions.append(condition)
+	
+	Events.on_monster_updated.emit(monster)
+
+func end_condition(monster: Monster, condition: Condition):
+	monster.conditions.remove_at(monster.conditions.find(condition))
 	
 	Events.on_monster_updated.emit(monster)
