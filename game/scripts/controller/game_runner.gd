@@ -5,6 +5,12 @@ extends Node
 # INTERACTION_MODE encodes the menu states the main battle menu can be in.
 # Since RUN isn't a special menu, it does not get an entry here
 enum INTERACTION_MODE {NONE, FIGHT, ITEM, MON}
+enum PHASE {AWAIT_INPUT, RESOLVE_ROUND}
+
+var current_phase: PHASE
+var chosen_player_monster_move: Move
+var chosen_enemy_monster_move: Move
+var default_fallback_move = preload("res://content/moves/struggle.tres")
 
 var game_state: GameState
 var rng: RandomNumberGenerator
@@ -18,8 +24,18 @@ func _ready():
 	Events.on_ui_ready.connect(setup_model)
 	
 func _process(_delta: float):
-	if !game_state.is_player_turn:
-		run_ai_turn()
+	if current_phase == PHASE.AWAIT_INPUT:
+		if chosen_enemy_monster_move == null:
+			chosen_enemy_monster_move = choose_ai_move()
+		if chosen_player_monster_move != null:
+			current_phase = PHASE.RESOLVE_ROUND
+	elif current_phase == PHASE.RESOLVE_ROUND:
+		resolve_round()
+		chosen_enemy_monster_move = null
+		chosen_player_monster_move = null
+		current_phase = PHASE.AWAIT_INPUT
+	else:
+		return
 	
 func setup_model():
 	game_state = GameState.new()
@@ -62,7 +78,7 @@ func handle_request_menu_option_by_index(mode: INTERACTION_MODE, index: int):
 		INTERACTION_MODE.MON:
 			TrainerController.add_trainer_monster_to_battle(game_state.player, index)
 		INTERACTION_MODE.FIGHT:
-			MonsterController.use_monster_move_at_index(game_state.player.current_monster, index)
+			chosen_enemy_monster_move = MonsterController.get_monster_move_at_index(game_state.player.current_monster, index)
 			
 	Events.on_menu_option_selected.emit()
 
@@ -90,13 +106,17 @@ func on_turn_begun():
 			MonsterController.end_condition(monster, condition)
 			
 
-func run_ai_turn():	
+func choose_ai_move() -> Move:	
 	var legal_move_indices = game_state.opponent_monster.get_legal_move_indices()
 	if legal_move_indices.size() <= 0:
-		# struggle movew
-		Events.request_log.emit("cant act. no moves")
-		on_turn_ended()
+		Events.request_log.emit("no moves. using default")
+		# on_turn_ended()
+		return game_state.opponent_monster.default_fallback_move
 	else:
 		var move_index = legal_move_indices.pick_random()
-		MonsterController.use_monster_move_at_index(game_state.opponent_monster, move_index)
-		
+		return MonsterController.get_monster_move_at_index(game_state.opponent_monster, move_index)
+
+func resolve_round():
+	MonsterController.use_monster_move(game_state.opponent_monster, chosen_enemy_monster_move)
+	MonsterController.use_monster_move(game_state.player_monster, chosen_player_monster_move)
+	

@@ -29,10 +29,14 @@ func adjust_monster_hitpoints(monster: Monster, amount: int):
 	# TODO: add check for fainting
 	Events.on_monster_updated.emit(monster)
 	
-func use_monster_move_at_index(monster: Monster, index: int):
-	var move = monster.moves[index]
+func get_monster_move_at_index(monster: Monster, index: int) -> Move:
+	return monster.moves[index]
+	
+func use_monster_move(monster: Monster, move: Move):
 	if move.usages <= 0:
 		return
+	
+	#var move = monster.moves[index]
 	
 	var use_message = move.use_message.format({"user_name": monster.name, "move_name": move.name})
 	Events.request_log.emit(use_message)
@@ -61,6 +65,7 @@ func create_monster(species: SpeciesResource, nickname: String = "") -> Monster:
 	monster.species = species
 	monster.hp = monster.max_hp
 	monster.nickname = nickname
+	
 	var moves: Array[Move] = []
 	
 	for move_resource in species.starter_moves:
@@ -72,6 +77,10 @@ func create_monster(species: SpeciesResource, nickname: String = "") -> Monster:
 		moves.append(move)
 	
 	monster.moves = moves
+	
+	monster.default_fallback_move = Move.new()
+	monster.default_fallback_move.resource = preload("res://content/moves/struggle.tres")
+	monster.default_fallback_move.usages = 999
 	
 	return monster
 
