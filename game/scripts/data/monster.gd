@@ -5,8 +5,9 @@ var hp: int
 var nickname: String
 var moves: Array[Move]
 var conditions: Array[Condition]
-var move_blocked: bool
 var default_fallback_move
+var move_blocked: bool
+var chosen_move
 
 var image: Texture2D:
 	get: return species.image

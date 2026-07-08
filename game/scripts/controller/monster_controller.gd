@@ -44,7 +44,7 @@ func use_monster_move(monster: Monster, move: Move):
 	if monster.move_blocked:
 		Events.request_log.emit("But they can't move!")
 		monster.move_blocked = false
-		GameRunner.on_turn_ended()
+		#GameRunner.on_turn_ended()
 		return
 		
 	move.usages -= 1
@@ -96,6 +96,22 @@ func instantiate_condition_on_monster(monster: Monster, condition_resource: Cond
 	monster.conditions.append(condition)
 	
 	Events.on_monster_updated.emit(monster)
+	
+func do_monster_turn(monster: Monster):
+	on_turn_begun(monster)
+	use_monster_move(monster, monster.chosen_move)
+	monster.chosen_move = null
+	return
+
+func on_turn_begun(monster: Monster):
+	#TODO call this
+	#var monster = get_current_monster()
+	for condition in monster.conditions:
+		for effect in condition.resource.on_begin_turn_effects:
+			effect._do(monster, condition, game_state)
+		condition.duration_remaining -= 1
+		if condition.duration_remaining <= 0:
+			end_condition(monster, condition)
 
 func end_condition(monster: Monster, condition: Condition):
 	monster.conditions.remove_at(monster.conditions.find(condition))
