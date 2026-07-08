@@ -122,7 +122,7 @@ func choose_ai_move() -> Move:
 		return MonsterController.get_monster_move_at_index(game_state.opponent_monster, move_index)
 
 func resolve_round():
-	var player_goes_first = game_state.player_monster.speed >= game_state.opponent_monster.speed
+	var player_goes_first = does_player_go_first(game_state.player_monster, game_state.opponent_monster)
 	
 	if player_goes_first:
 		MonsterController.do_monster_turn(game_state.player_monster)
@@ -130,3 +130,15 @@ func resolve_round():
 	else:
 		MonsterController.do_monster_turn(game_state.opponent_monster)
 		MonsterController.do_monster_turn(game_state.player_monster)
+		
+func does_player_go_first(player_monster: Monster, opponent_monster: Monster) -> bool:
+	assert(player_monster.chosen_move != null)
+	assert(opponent_monster.chosen_move != null)
+		
+	if player_monster.chosen_move.move_priority > opponent_monster.chosen_move.move_priority:
+		return true
+	elif player_monster.chosen_move.move_priority < opponent_monster.chosen_move.move_priority:
+		return false
+	else:
+		return game_state.player_monster.speed >= game_state.opponent_monster.speed
+	 
