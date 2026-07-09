@@ -4,7 +4,7 @@ class_name DoDamage extends TargetedEffect
 @export var ignore_stats: bool
 @export var damage_log_string: String = "{doer_name} hits {target_name} for {amt} damage"
 
-func _do(doer: Monster, source: Object, game_state: GameState):
+func _do(doer: Monster, source: Object, game_state: GameState, is_critical: bool):
 	var target = doer if target_self else MonsterController.get_monster_opponent(doer)
 	var type = source.get_type() if source.has_method("get_type") else MonsterType.Type.NORMAL
 	

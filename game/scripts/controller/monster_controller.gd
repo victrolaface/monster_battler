@@ -50,16 +50,18 @@ func use_monster_move(monster: Monster, move: Move):
 	move.usages -= 1
 	
 	var hit = rng.randf() < move.base_accuracy
-	
+ 
 	if !hit:
 		Events.request_log.emit("But it misses")
 	
-	for effect in move.resource.use_effects:
-		if effect._should_do(hit):
-			effect._do(monster, move, game_state)
-			
+	var crit = rng.randf() <  Calculations.get_crit_chance(monster)
+	if crit:
+		Events.request_log.emit("Crit hit")
 	
-
+	for effect in move.resource.use_effects:
+		if effect._should_do(hit, crit):
+			effect._do(monster, move, game_state, crit)
+			
 func create_monster(species: SpeciesResource, nickname: String = "") -> Monster:
 	var monster = Monster.new()
 	monster.species = species
