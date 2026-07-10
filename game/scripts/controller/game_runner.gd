@@ -5,7 +5,7 @@ extends Node
 # INTERACTION_MODE encodes the menu states the main battle menu can be in.
 # Since RUN isn't a special menu, it does not get an entry here
 enum INTERACTION_MODE {NONE, FIGHT, ITEM, MON}
-enum PHASE {AWAIT_INPUT, RESOLVE_ROUND}
+enum PHASE {AWAIT_INPUT, RESOLVE_ROUND, GAME_OVER}
 
 var current_phase: PHASE
 #var chosen_player_monster_move: Move
@@ -22,21 +22,19 @@ func _ready():
 	Events.request_menu_monsters.connect(handle_request_menu_monsters)
 	Events.request_menu_option_by_index.connect(handle_request_menu_option_by_index)
 	Events.on_ui_ready.connect(setup_model)
+	Events.request_restart_game.connect(handle_restart)
+	Events.request_quit.connect(handle_quit)
 	
 func _process(_delta: float):
 	if current_phase == PHASE.AWAIT_INPUT:
-		#if chosen_enemy_monster_move == null:
 		if game_state.opponent_monster.chosen_move == null:
 			game_state.opponent_monster.chosen_move = choose_ai_move()
-			#chosen_enemy_monster_move = choose_ai_move()
 		if game_state.player_monster.chosen_move != null:
-		#if chosen_player_monster_move != null:
 			current_phase = PHASE.RESOLVE_ROUND
 	elif current_phase == PHASE.RESOLVE_ROUND:
 		resolve_round()
-		#chosen_enemy_monster_move = null
-		#chosen_player_monster_move = null
-		current_phase = PHASE.AWAIT_INPUT
+		if current_phase != PHASE.GAME_OVER:
+			current_phase = PHASE.AWAIT_INPUT
 	else:
 		return
 	
@@ -57,11 +55,12 @@ func setup_model():
 	game_state.player = TrainerController.create_trainer([monster1, monster2], true)
 	game_state.opponent = TrainerController.create_trainer([monster3], false)
 	
-	#game_state.is_player_turn = game_state.player_monster.speed >= game_state.opponent_monster.speed
-	
-	return
+	current_phase = PHASE.AWAIT_INPUT
 	
 func handle_request_menu_fight():
+	if current_phase != PHASE.AWAIT_INPUT:
+		return
+	
 	var labels: Array[StringEnabled] = []
 	
 	for move in game_state.player.current_monster.moves:
@@ -71,12 +70,18 @@ func handle_request_menu_fight():
 	Events.on_menu_fight.emit(labels)
 		
 func handle_request_menu_monsters():
+	if current_phase != PHASE.AWAIT_INPUT:
+		return
+		
 	var labels: Array[StringEnabled] = []
 	for monster in game_state.player.monsters:
 		labels.append(StringEnabled.new(monster.name, monster.hp > 0))
 	Events.on_menu_select_monster.emit(labels)
 
 func handle_request_menu_option_by_index(mode: INTERACTION_MODE, index: int):
+	if current_phase != PHASE.AWAIT_INPUT:
+		return
+		
 	match(mode):
 		INTERACTION_MODE.MON:
 			TrainerController.add_trainer_monster_to_battle(game_state.player, index)
@@ -87,6 +92,9 @@ func handle_request_menu_option_by_index(mode: INTERACTION_MODE, index: int):
 	Events.on_menu_option_selected.emit()
 
 func handle_run():
+	if current_phase != PHASE.AWAIT_INPUT:
+		return
+		
 	Events.request_log.emit("You run away. Your cowardice will not be forgotten.")
 	
 	var timer = Timer.new()
@@ -110,6 +118,11 @@ func handle_run():
 		#if condition.duration_remaining <= 0:
 			#MonsterController.end_condition(monster, condition)
 			
+func handle_restart():
+	setup_model()
+
+func handle_quit():
+	get_tree().quit()
 
 func choose_ai_move() -> Move:	
 	var legal_move_indices = game_state.opponent_monster.get_legal_move_indices()
@@ -135,7 +148,8 @@ func resolve_round():
 		var next_index = TrainerController.get_next_useable_monster_index(game_state.player)
 		
 		if next_index == -1:
-			print("lost")
+			current_phase = PHASE.GAME_OVER
+			Events.on_game_over.emit(false)
 		else:
 			TrainerController.add_trainer_monster_to_battle(game_state.player, next_index)
 			
@@ -143,7 +157,9 @@ func resolve_round():
 		var next_index = TrainerController.get_next_useable_monster_index(game_state.opponent)
 		
 		if next_index == -1:
-			print("won")
+			current_phase = PHASE.GAME_OVER
+			Events.on_game_over.emit(true)
+			#print("won")
 		else:
 			TrainerController.add_trainer_monster_to_battle(game_state.opponent, next_index)
 		

@@ -32,7 +32,6 @@ func adjust_monster_hitpoints(monster: Monster, amount: int):
 	Events.on_monster_updated.emit(monster)
 	
 func faint_monster(monster: Monster):
-	
 	return
 	
 func get_monster_move_at_index(monster: Monster, index: int) -> Move:
