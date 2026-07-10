@@ -130,6 +130,22 @@ func resolve_round():
 	else:
 		MonsterController.do_monster_turn(game_state.opponent_monster)
 		MonsterController.do_monster_turn(game_state.player_monster)
+	
+	if game_state.player_monster.hp == 0:
+		var next_index = TrainerController.get_next_useable_monster_index(game_state.player)
+		
+		if next_index == -1:
+			print("lost")
+		else:
+			TrainerController.add_trainer_monster_to_battle(game_state.player, next_index)
+			
+	if game_state.opponent.hp == 0:
+		var next_index = TrainerController.get_next_useable_monster_index(game_state.opponent)
+		
+		if next_index == -1:
+			print("won")
+		else:
+			TrainerController.add_trainer_monster_to_battle(game_state.opponent, next_index)
 		
 func does_player_go_first(player_monster: Monster, opponent_monster: Monster) -> bool:
 	assert(player_monster.chosen_move != null)
