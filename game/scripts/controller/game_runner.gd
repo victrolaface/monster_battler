@@ -8,8 +8,6 @@ enum INTERACTION_MODE {NONE, FIGHT, ITEM, MON}
 enum PHASE {AWAIT_INPUT, RESOLVE_ROUND, GAME_OVER}
 
 var current_phase: PHASE
-#var chosen_player_monster_move: Move
-#var chosen_enemy_monster_move: Move
 var default_fallback_move = preload("res://content/moves/struggle.tres")
 
 var game_state: GameState
@@ -56,6 +54,22 @@ func setup_model():
 	game_state.opponent = TrainerController.create_trainer([monster3], false)
 	
 	current_phase = PHASE.AWAIT_INPUT
+	
+	var clip = preload("res://assets/sound/Game_SFX_by_OwlishMedia/birdchirp2.wav")
+	Events.on_avfx_sfx.emit(clip)
+
+	var v2fs:Array[Vector2Float] = []
+	var v2f1 = Vector2Float.new()
+	v2f1.v2 = Vector2(-20, 5)
+	v2f1.f = 0.05
+	var v2f2 = Vector2Float.new()
+	v2f2.v2 = Vector2(10,-5)
+	v2f2.f = 0.1
+	v2fs.append(v2f1)
+	v2fs.append(v2f2)
+	v2f1 = Vector2(-20, 5)
+	
+	Events.on_avfx_move.emit(game_state.player_monster, v2fs)
 	
 func handle_request_menu_fight():
 	if current_phase != PHASE.AWAIT_INPUT:
@@ -104,25 +118,11 @@ func handle_run():
 	timer.start()
 	return
 
-#func on_turn_ended():
-	#game_state.is_player_turn = !game_state.is_player_turn
-	#on_turn_begun()
-	
-#func on_turn_begun():
-	##TODO call this
-	#var monster = MonsterController.get_current_monster()
-	#for condition in monster.conditions:
-		#for effect in condition.resource.on_begin_turn_effects:
-			#effect._do(monster, condition, game_state)
-		#condition.duration_remaining -= 1
-		#if condition.duration_remaining <= 0:
-			#MonsterController.end_condition(monster, condition)
-			
-func handle_restart():
-	setup_model()
-
 func handle_quit():
 	get_tree().quit()
+
+func handle_restart():
+	setup_model()
 
 func choose_ai_move() -> Move:	
 	var legal_move_indices = game_state.opponent_monster.get_legal_move_indices()
@@ -159,7 +159,6 @@ func resolve_round():
 		if next_index == -1:
 			current_phase = PHASE.GAME_OVER
 			Events.on_game_over.emit(true)
-			#print("won")
 		else:
 			TrainerController.add_trainer_monster_to_battle(game_state.opponent, next_index)
 		

@@ -51,9 +51,10 @@ offset_right = 447.0
 offset_bottom = 302.0
 theme = ExtResource("2_trceg")
 theme_override_fonts/font = ExtResource("9_gqmmt")
-current_tab = 0
+current_tab = 2
 
 [node name="log" parent="battle_renderer/tabs" unique_id=1524966595 instance=ExtResource("7_ya4ey")]
+visible = false
 layout_mode = 2
 
 [node name="you" parent="battle_renderer/tabs" unique_id=1064616761 instance=ExtResource("8_eb6dy")]
@@ -63,7 +64,6 @@ localize_numeral_system = false
 your_monster = true
 
 [node name="them" parent="battle_renderer/tabs" unique_id=259171776 instance=ExtResource("8_eb6dy")]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
