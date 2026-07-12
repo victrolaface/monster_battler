@@ -1,8 +1,16 @@
 [gd_resource type="Resource" script_class="MoveResource" format=3 uid="uid://xdeavx7x3eb2"]
 
 [ext_resource type="Script" uid="uid://b8pt4buw614s3" path="res://scripts/content/move_resource.gd" id="1_cfgox"]
+[ext_resource type="Script" uid="uid://cv01tthnwd0x0" path="res://scripts/avfx/avfx_resources/avfx_resource.gd" id="2_23jds"]
 [ext_resource type="Script" uid="uid://bmpu62rqyon1e" path="res://scripts/content/targeted_effects/targeted_effect.gd" id="2_rvtjr"]
+[ext_resource type="AudioStream" uid="uid://ct00s14kfp6rs" path="res://assets/sound/Game_SFX_by_OwlishMedia/bounce.wav" id="3_5jvuc"]
 [ext_resource type="Script" uid="uid://bkdjxoradugbj" path="res://scripts/content/targeted_effects/do_damage.gd" id="3_apfif"]
+[ext_resource type="Script" uid="uid://bhgh21etv1u50" path="res://scripts/avfx/avfx_resources/avfx_play_sfx.gd" id="4_2sypg"]
+
+[sub_resource type="Resource" id="Resource_cfn24"]
+script = ExtResource("4_2sypg")
+clip = ExtResource("3_5jvuc")
+metadata/_custom_type_script = "uid://bhgh21etv1u50"
 
 [sub_resource type="Resource" id="Resource_5qlyv"]
 script = ExtResource("3_apfif")
@@ -14,4 +22,5 @@ script = ExtResource("1_cfgox")
 name = "Smack"
 usage_max = 25
 use_effects = Array[ExtResource("2_rvtjr")]([SubResource("Resource_5qlyv")])
+use_avfx = Array[ExtResource("2_23jds")]([SubResource("Resource_cfn24")])
 metadata/_custom_type_script = "uid://b8pt4buw614s3"

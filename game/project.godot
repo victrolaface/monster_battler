@@ -26,6 +26,7 @@ GameRunner="*res://scripts/controller/game_runner.gd"
 MonsterController="*uid://db5d6nq0ajioe"
 TrainerController="*uid://bilxrlxdiqije"
 SfxPlayer="*uid://dsws6fewkev3i"
+AvfxManager="*uid://ccq8l2331dufw"
 
 [debug]
 
