@@ -5,7 +5,7 @@ extends Node
 # INTERACTION_MODE encodes the menu states the main battle menu can be in.
 # Since RUN isn't a special menu, it does not get an entry here
 enum INTERACTION_MODE {NONE, FIGHT, ITEM, MON}
-enum PHASE {AWAIT_INPUT, RESOLVE_ROUND, GAME_OVER}
+enum PHASE {AWAIT_INPUT, RESOLVE_ROUND, AWAIT_AVFX, GAME_OVER}
 
 var current_phase: PHASE
 var default_fallback_move = preload("res://content/moves/struggle.tres")
@@ -19,9 +19,12 @@ func _ready():
 	Events.request_menu_run.connect(handle_run)
 	Events.request_menu_monsters.connect(handle_request_menu_monsters)
 	Events.request_menu_option_by_index.connect(handle_request_menu_option_by_index)
-	Events.on_ui_ready.connect(setup_model)
 	Events.request_restart_game.connect(handle_restart)
 	Events.request_quit.connect(handle_quit)
+	Events.on_avfx_block_start.connect(func(): current_phase = PHASE.AWAIT_AVFX)
+	Events.on_avfx_block_end.connect(func(): current_phase = PHASE.AWAIT_INPUT)
+	
+	Events.on_ui_ready.connect(setup_model)
 	
 func _process(_delta: float):
 	if current_phase == PHASE.AWAIT_INPUT:
@@ -33,6 +36,8 @@ func _process(_delta: float):
 		resolve_round()
 		if current_phase != PHASE.GAME_OVER:
 			current_phase = PHASE.AWAIT_INPUT
+	elif current_phase == PHASE.AWAIT_AVFX:
+		return
 	else:
 		return
 	
@@ -55,6 +60,8 @@ func setup_model():
 	
 	current_phase = PHASE.AWAIT_INPUT
 	
+	var clip = preload("res://assets/sound/Game_SFX_by_OwlishMedia/bounce.wav")
+	Events.request_sfx.emit(clip)
 	#var clip = preload("res://assets/sound/Game_SFX_by_OwlishMedia/birdchirp2.wav")
 	#Events.on_avfx_sfx.emit(clip)
 	

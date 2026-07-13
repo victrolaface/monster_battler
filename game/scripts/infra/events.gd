@@ -25,5 +25,8 @@ signal request_log
 signal on_ui_ready
 
 # events for avfx
+signal on_avfx_block_start
+signal on_avfx_block_end
 signal on_avfx_sfx
 signal on_avfx_move
+signal request_sfx
