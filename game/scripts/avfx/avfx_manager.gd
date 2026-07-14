@@ -12,8 +12,6 @@ func queue_avfx_effect(resource: AVFXResource, target: Monster):
 	
 	active_effect_count += 1
 	
-	
-	
 func emit_block_start():
 	Events.on_avfx_block_start.emit()
 
@@ -22,4 +20,4 @@ func remove_effect(avfx_instance: AVFXInstance):
 	active_effect_count -= 1
 
 	if active_effect_count == 0:
-		Events.on_avfx_block_start.emit()
+		Events.on_avfx_block_end.emit()
