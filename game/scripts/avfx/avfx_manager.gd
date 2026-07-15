@@ -6,7 +6,7 @@ var current_effect_group: Node
 var active: bool
 
 func _process(_delta: float) -> void:
-	if active and current_effect_group == null:
+	if current_effect_group == null:
 		if effect_group_queue.size() == 0:
 			Events.on_avfx_block_end.emit()
 			active = false
@@ -14,9 +14,9 @@ func _process(_delta: float) -> void:
 			current_effect_group = effect_group_queue.pop_front()
 			active_effect_count = current_effect_group.get_children().size()
 			for afvx_instance in current_effect_group.get_children():
-				avfx_instance.execute()
+				afvx_instance.execute()
 	
-func queue_avfx_effect_group(resources: Array[AVFXResource], target: Monster):
+func queue_avfx_effect_group(resources: Array[AVFXResource], monster: Monster):
 	active = true
 	var group = Node.new()
 	add_child(group)
