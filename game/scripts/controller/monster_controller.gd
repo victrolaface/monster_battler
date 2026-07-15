@@ -66,11 +66,7 @@ func use_monster_move(monster: Monster, move: Move):
 	if crit:
 		Events.request_log.emit("Crit hit")
 	
-	for avfx in move.resource.use_avfx:
-		var target = monster if avfx.target_self else opponent
-		AvfxManager.queue_avfx_effect(avfx, target)
-		
-		
+	AvfxManager.queue_avfx_effect_group(move.resource.use_avfx, monster)
 	
 	for effect in move.resource.use_effects:
 		if effect._should_do(hit, crit):

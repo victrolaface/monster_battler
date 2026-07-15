@@ -15,5 +15,6 @@ metadata/_custom_type_script = "uid://cfhv5x13i64h"
 script = ExtResource("2_u2f4u")
 name = "Paralyze"
 on_begin_turn_effects = Array[ExtResource("1_db16e")]([SubResource("Resource_tipki")])
+duration = 2
 short_name = "PAR"
 metadata/_custom_type_script = "uid://bw5ule2ss55e4"
