@@ -69,18 +69,3 @@ func update():
 	hp_label.text = "{hp}\\{max_hp}".format({"hp": bound_monster.hp, "max_hp": bound_monster.max_hp})
 	
 	return
-
-#var monster = avfx_instance.target
-	#if monster != bound_monster:
-	#	return
-	#tween.finished.connect(avfx_instance.finish)
-#func move_monster(monster: Monster, v2fs: Array[Vector2Float]):
-	#if monster != bound_monster:
-		#return
-	#var tween = get_tree().create_tween()
-			#
-	#for v2f in v2fs:
-		#tween.tween_property(sprite, "offset", v2f.v2, v2f.f)
-	#
-	#tween.tween_property(sprite, "offset", Vector2.ZERO, 0.1)
-		#

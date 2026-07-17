@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://bhgh21etv1u50" path="res://scripts/avfx/avfx_resources/avfx_play_sfx.gd" id="4_bstxr"]
 [ext_resource type="Script" uid="uid://bxl72h7cvlfm2" path="res://scripts/content/vector2_float.gd" id="5_bstxr"]
 [ext_resource type="Script" uid="uid://bv3d2c7c8576n" path="res://scripts/avfx/avfx_resources/avfx_move_monster.gd" id="6_xq2r4"]
+[ext_resource type="Script" uid="uid://bo8kw2et25c4l" path="res://scripts/avfx/avfx_resources/avfx_projectile.gd" id="7_xqgum"]
+[ext_resource type="Texture2D" uid="uid://10wgtdd8q2en" path="res://assets/art/projectile/fire_projectile.png" id="8_fxsml"]
 
 [sub_resource type="Resource" id="Resource_4mfxq"]
 script = ExtResource("4_bstxr")
@@ -32,6 +34,11 @@ script = ExtResource("6_xq2r4")
 offsets_by_duration = Array[ExtResource("5_bstxr")]([SubResource("Resource_85g3d"), SubResource("Resource_choun")])
 metadata/_custom_type_script = "uid://bv3d2c7c8576n"
 
+[sub_resource type="Resource" id="Resource_bstxr"]
+script = ExtResource("7_xqgum")
+sprite = ExtResource("8_fxsml")
+metadata/_custom_type_script = "uid://bo8kw2et25c4l"
+
 [sub_resource type="Resource" id="Resource_e77o3"]
 script = ExtResource("3_fjdo5")
 base_damage = 10
@@ -43,5 +50,5 @@ name = "Fast Attack"
 usage_max = 10
 use_effects = Array[ExtResource("2_fjdo5")]([SubResource("Resource_e77o3")])
 move_priority = 1
-use_avfx = Array[ExtResource("2_cfn24")]([SubResource("Resource_4mfxq"), SubResource("Resource_tipki")])
+use_avfx = Array[ExtResource("2_cfn24")]([SubResource("Resource_4mfxq"), SubResource("Resource_tipki"), SubResource("Resource_bstxr")])
 metadata/_custom_type_script = "uid://b8pt4buw614s3"
