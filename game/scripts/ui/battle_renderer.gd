@@ -23,8 +23,11 @@ func avfx_projectile(instance: AVFXInstance, texture: Texture2D):
 	sprite.offset = instance.resource.offset
 	
 	var tween = get_tree().create_tween()
-	tween.tween_property(sprite, "global_position", enemy_mon_module.frame, 0.5)
+	
+	#tween.tween_property(sprite, "global_position", enemy_mon_module.frame, 0.5)
+	tween.tween_property(sprite, "global_position", enemy_mon_module.frame.global_position, 0.5)
 	tween.tween_callback(func(): cleanup_projectile(instance, sprite))
+
 	return
 
 func cleanup_projectile(instance, sprite):
