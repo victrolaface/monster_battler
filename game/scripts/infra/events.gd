@@ -31,3 +31,4 @@ signal on_avfx_sfx
 signal on_avfx_move
 signal request_sfx
 signal on_avfx_projectile
+signal on_avfx_animation

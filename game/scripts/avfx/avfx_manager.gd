@@ -25,7 +25,7 @@ func queue_avfx_effect_group(resources: Array[AVFXResource], monster: Monster):
 	add_child(group)
 	for resource in resources:
 		var target = monster if resource.target_self else MonsterController.get_monster_opponent(monster)
-		var instance = resource.generate(target)
+		var instance = resource.generate(target, monster)
 		group.add_child(instance)
 		instance.name = resource.get_script().get_global_name()
 	effect_group_queue.push_back(group)

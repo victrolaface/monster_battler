@@ -51,6 +51,9 @@ func move_monster(avfx_instance: AVFXInstance, v2fs: Array[Vector2Float]):
 
 	var tween = get_tree().create_tween()
 			
+	tween.tween_property(sprite, "offset", Vector2.ZERO, 0.0)\
+		.set_delay(avfx_instance.resource.delay)
+	
 	for v2f in v2fs:
 		tween.tween_property(sprite, "offset", v2f.v2, v2f.f)
 	
